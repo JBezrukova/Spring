@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="/templates/css/style_login.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <header class="header">
+
+    </header><!-- .header-->
+
+    <main class="content">
+        <center>
+            <form class="form-container" th:action="@{/login_check}" method="post">
+                <div class="form-title"><h2>Авторизуйтесь в сервисе</h2></div>
+                <div class="form-title">Логин</div>
+                <input type="text" name="login_login" class="form-field"
+                       placeholder="login" required="true" autofocus="true"/><br/>
+                <div class="form-title">Пароль</div>
+                <input type="password" name="login_password" class="form-field"
+                       placeholder="password" required="true"/><br/>
+
+                <div class="submit-container">
+                    <center>
+                        <p id="informText" th:text="${error}"></p><br/>
+                        <input id="sub" class="submit-button" type="submit" value="Войти"/>
+                    </center>
+                </div>
+            </form>
+        </center>
+    </main><!-- .content -->
+
+</div><!-- .wrapper -->
+</body>
+</html>
