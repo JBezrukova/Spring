@@ -1,5 +1,8 @@
 package com.example.med.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,10 +28,12 @@ public class CardNote {
 
     @ManyToOne
     @JoinColumn(name = "user_card_id")
+    @JsonManagedReference
     private UserCard userCard;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
+    @JsonManagedReference
     private Doctor doctor;
 
     public int getId() {

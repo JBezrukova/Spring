@@ -1,5 +1,8 @@
 package com.example.med.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +20,7 @@ public class DoctorCategory {
     private String name;
 
     @OneToMany(mappedBy = "doctor_id")
+    @JsonBackReference
     private Set<Doctor> doctors = new HashSet<>();
 
     public int getCategory_id() {

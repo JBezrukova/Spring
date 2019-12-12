@@ -24,30 +24,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/login","/registration", "/css/**", "/api/**").permitAll()
-                .anyRequest().authenticated();
-        //.anyRequest().permitAll();
-
-        http.formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login_check")
-                .failureUrl("/login?error")
-                .usernameParameter("login_login")
-                .passwordParameter("login_password")
-                .permitAll();
-
-        http.logout()
-                // разрешаем делать логаут всем
-                .permitAll()
-                // указываем URL логаута
-                .logoutUrl("/logout")
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login")
-                // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
+//        http.csrf()
+//                .disable()
+//                .authorizeRequests()
+//                .antMatchers("/login","/registration", "/css/**", "/api/**").permitAll()
+//                .anyRequest().authenticated();
+//        //.anyRequest().permitAll();
+//
+//        http.formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/login_check")
+//                .failureUrl("/login?error")
+//                .usernameParameter("login_login")
+//                .passwordParameter("login_password")
+//                .permitAll();
+//
+//        http.logout()
+//                // разрешаем делать логаут всем
+//                .permitAll()
+//                // указываем URL логаута
+//                .logoutUrl("/logout")
+//                // указываем URL при удачном логауте
+//                .logoutSuccessUrl("/login")
+//                // делаем не валидной текущую сессию
+//                .invalidateHttpSession(true);
 
     }
 }

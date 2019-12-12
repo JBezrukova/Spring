@@ -1,11 +1,17 @@
 package com.example.med.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"login"}))
+@JsonIgnoreProperties({"userCard"})
 public class User {
 
     @Id
@@ -39,12 +45,15 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "user_card_id")
+    @JsonManagedReference
     private UserCard userCard;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private Set<Request> requests = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private Set<Record> records = new HashSet<>();
 
     @ManyToMany

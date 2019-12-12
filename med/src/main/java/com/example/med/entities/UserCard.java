@@ -1,5 +1,8 @@
 package com.example.med.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +18,7 @@ public class UserCard {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     @Column(name = "passport", length = 10)
@@ -30,6 +34,7 @@ public class UserCard {
     private String notes;
 
     @OneToMany(mappedBy = "userCard")
+    @JsonBackReference
     private Set<CardNote> noteSet = new HashSet<>();
 
     public Set<CardNote> getNoteSet() {
