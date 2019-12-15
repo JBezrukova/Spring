@@ -16,8 +16,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Integer user_id;
+    @Column(name = "userId")
+    private Integer userId;
 
     @Column(name = "login", length = 45)
     private String login;
@@ -75,12 +75,12 @@ public class User {
         this.records = records;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getLogin() {

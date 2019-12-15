@@ -22,12 +22,12 @@ public class Request {
     private String time;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     @JsonManagedReference
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctorId")
     @JsonManagedReference
     private Doctor doctor;
 

@@ -1,7 +1,6 @@
 package com.example.med.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,22 +12,22 @@ public class DoctorCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private int category_id;
+    @Column(name = "categoryId")
+    private int categoryId;
 
     @Column(name = "category_name", length = 45)
     private String name;
 
-    @OneToMany(mappedBy = "doctor_id")
+    @OneToMany(mappedBy = "doctorId")
     @JsonBackReference
     private Set<Doctor> doctors = new HashSet<>();
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

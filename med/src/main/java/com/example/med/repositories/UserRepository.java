@@ -8,4 +8,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserRepository extends CrudRepository<User, Integer> {
     User findUserByLogin(String login);
+
+    User findUserByUserId(int id);
 }

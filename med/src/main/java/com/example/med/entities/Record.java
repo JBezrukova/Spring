@@ -2,6 +2,7 @@ package com.example.med.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -21,11 +22,13 @@ public class Record {
     private String time;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
+    @JsonManagedReference
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctorId")
+    @JsonManagedReference
     private Doctor doctor;
 
     public Integer getId() {

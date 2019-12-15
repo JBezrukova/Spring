@@ -13,8 +13,8 @@ public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "doctor_id")
-    private Integer doctor_id;
+    @Column(name = "doctorId")
+    private Integer doctorId;
 
     @Column(name = "name")
     private String name;
@@ -68,11 +68,11 @@ public class Doctor {
     }
 
     public Integer getID() {
-        return doctor_id;
+        return doctorId;
     }
 
     public void setID(Integer ID) {
-        this.doctor_id = ID;
+        this.doctorId = ID;
     }
 
     public String getName() {
