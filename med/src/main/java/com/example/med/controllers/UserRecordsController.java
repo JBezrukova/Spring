@@ -34,7 +34,7 @@ public class UserRecordsController {
     DoctorRepository doctorRepository;
 
     @RequestMapping("/records")
-    public List<Record> geeAllRecordForUser(@RequestBody String login) {
+    public List<Record> getAllRecordForUser(@RequestBody String login) {
         String userLogin = login.split("=")[1];
         User user = userRepository.findUserByLogin(userLogin);
         List<Record> records = recordsRepository.findAllByUserEquals(user);

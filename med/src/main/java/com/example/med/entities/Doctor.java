@@ -2,6 +2,7 @@ package com.example.med.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -33,6 +34,9 @@ public class Doctor {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    private String role;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -131,4 +135,27 @@ public class Doctor {
         this.specialization = specialization;
     }
 
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Set<CardNote> getCardNotes() {
+        return cardNotes;
+    }
+
+    public void setCardNotes(Set<CardNote> cardNotes) {
+        this.cardNotes = cardNotes;
+    }
 }

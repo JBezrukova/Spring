@@ -1,21 +1,60 @@
 package com.example.med.controllers;
 
 
-import org.springframework.stereotype.Controller;
+import com.example.med.BaseError;
+import com.example.med.entities.Administrator;
+import com.example.med.entities.Doctor;
+import com.example.med.entities.User;
+import com.example.med.repositories.AdministratorRepository;
+import com.example.med.repositories.DoctorRepository;
+import com.example.med.repositories.UserRepository;
+import netscape.javascript.JSObject;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class UserLoginController {
-    private static ModelAndView modelAndView = new ModelAndView("login");
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView loginPage(@RequestParam(value = "error", required = false) String error) {
-        if (error != null) {
-            modelAndView.addObject("error", "Неверный ввод логина или пароля. Попробуйте еще раз");
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AdministratorRepository administratorRepository;
+
+    @Autowired
+    DoctorRepository doctorRepository;
+
+    @RequestMapping(value = "/login",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            headers = "Accept=*/*")
+    public Object geeAllRecordForUser(@RequestBody String data) throws JSONException {
+        try {
+            JSONObject jsObject = new JSONObject(data.replaceAll("\n", ""));
+            String login = jsObject.getString("login");
+            String password = jsObject.getString("password");
+            User user = (userRepository.findUserByLogin(login));
+            if (user != null &&
+                    user.getPassword().equals(password)) {
+                return user;
+            }
+            Administrator administrator = administratorRepository.findAdministratorByLogin(login);
+            if (administrator != null &&
+                    administrator.getPassword().equals(password)) {
+                return administrator;
+            }
+            Doctor doctor = doctorRepository.findDoctorByLogin(login);
+            if (doctor != null &&
+                    doctor.getPassword().equals(password)) {
+                return doctor;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return modelAndView;
+        return "error";
     }
 }

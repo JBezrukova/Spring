@@ -10,5 +10,7 @@ import java.util.List;
 @Transactional
 public interface RequestsRepository extends CrudRepository<Request, Integer> {
 
-   List<Request> findAllByUserEquals(User user);
+    List<Request> findAllByUserEquals(User user);
+
+    Request findRequestById(int id);
 }

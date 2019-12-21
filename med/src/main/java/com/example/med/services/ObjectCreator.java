@@ -31,4 +31,34 @@ public class ObjectCreator {
         request.setApprovedByDoctor(false);
         return request;
     }
+
+    public static Request updateRequest(Request request, User user, Doctor doctor, JSONObject jsonObject) throws JSONException {
+        request.setUser(user);
+        request.setDoctor(doctor);
+        request.setDate(jsonObject.getString("date"));
+        request.setTime(jsonObject.getString("time"));
+        request.setReason(jsonObject.getString("reason"));
+        String byAdmin = jsonObject.getString("approvedByAdmin");
+        String byDoctor = jsonObject.getString("approvedByDoctor");
+        if (byAdmin.equals("true")) {
+            request.setApprovedByAdmin(true);
+        } else {
+            request.setApprovedByAdmin(false);
+        }
+        if (byDoctor.equals("true")) {
+            request.setApprovedByDoctor(true);
+        } else {
+            request.setApprovedByDoctor(false);
+        }
+        return request;
+    }
+
+    public static Record createRecordFromRequest(Request request) {
+        Record record = new Record();
+        record.setUser(request.getUser());
+        record.setTime(request.getTime());
+        record.setDate(request.getDate());
+        record.setDoctor(request.getDoctor());
+        return record;
+    }
 }
