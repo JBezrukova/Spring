@@ -61,4 +61,16 @@ public class ObjectCreator {
         record.setDoctor(request.getDoctor());
         return record;
     }
+
+    public static Request createRequestForDelete(Record record){
+        Request request = new Request();
+        request.setUser(record.getUser());
+        request.setDoctor(record.getDoctor());
+        request.setApprovedByDoctor(false);
+        request.setApprovedByAdmin(false);
+        request.setReason("delete");
+        request.setTime(record.getTime());
+        request.setDate(record.getDate());
+        return request;
+    }
 }

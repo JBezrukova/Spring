@@ -22,4 +22,6 @@ public interface RecordsRepository extends CrudRepository<Record, Integer> {
                                                    String date,
                                                    String time);
 
+    Record findRecordById(int id);
+
 }

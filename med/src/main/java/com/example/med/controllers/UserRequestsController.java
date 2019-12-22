@@ -13,11 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,12 +35,19 @@ public class UserRequestsController {
     @Autowired
     RecordsRepository recordsRepository;
 
-    @GetMapping("/requests")
-    public List<Request> geeAllRecordForUser(@RequestBody String login) {
-        String userLogin = login.split("=")[1];
-        User user = userRepository.findUserByLogin(userLogin);
-        List<Request> records = requestsRepository.findAllByUserEquals(user);
-        return records;
+    @RequestMapping(value = "/requests",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            headers = "Accept=*/*")
+    public List<Request> getAllRecordForUser(@RequestBody String login) {
+        List<Request> requests = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(login.replaceAll("/n", ""));
+            User user = userRepository.findUserByLogin(jsonObject.getString("login"));
+            requests = requestsRepository.findAllByUserEquals(user);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return requests;
     }
 
     @RequestMapping(value = "/create_request",
