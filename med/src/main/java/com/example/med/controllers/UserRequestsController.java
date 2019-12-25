@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,5 +104,10 @@ public class UserRequestsController {
             }
         }
         return requestsRepository.save(request);
+    }
+
+    @GetMapping("/all_requests")
+    public List<Request> getAllRequests() {
+        return (List<Request>) requestsRepository.findAll();
     }
 }
