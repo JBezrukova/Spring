@@ -3,9 +3,11 @@ package com.example.med.controllers;
 import com.example.med.entities.Doctor;
 import com.example.med.entities.DoctorCategory;
 import com.example.med.entities.Record;
+import com.example.med.entities.Request;
 import com.example.med.repositories.CategoryRepository;
 import com.example.med.repositories.DoctorRepository;
 import com.example.med.repositories.RecordsRepository;
+import com.example.med.repositories.RequestsRepository;
 import com.example.med.services.TimeService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +32,9 @@ public class DoctorRecordsController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    RequestsRepository requestsRepository;
 
     @RequestMapping(value = "/doc_records_free_time",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -84,5 +89,22 @@ public class DoctorRecordsController {
         }
         return doctors;
     }
+
+    @RequestMapping(value = "/doctor_requests",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            headers = "Accept=*/*")
+    public List<Request> getDoctorsRequests(@RequestBody String id) {
+        List<Request> requests = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(id.replaceAll("\n", ""));
+            requests = requestsRepository
+                    .findAllByDoctor(doctorRepository.findByDoctorId(
+                            Integer.valueOf(jsonObject.getInt("id"))));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return requests;
+    }
+
 
 }
