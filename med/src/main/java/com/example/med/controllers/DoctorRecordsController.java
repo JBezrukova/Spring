@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class DoctorRecordsController {
@@ -98,11 +99,16 @@ public class DoctorRecordsController {
         try {
             JSONObject jsonObject = new JSONObject(id.replaceAll("\n", ""));
             requests = requestsRepository
-                    .findAllByDoctor(doctorRepository.findByDoctorId(
-                            Integer.valueOf(jsonObject.getInt("id"))));
+                    .findAllByDoctor(
+                            doctorRepository.findByDoctorId(
+                                    jsonObject.getInt("id")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        requests = requests.stream()
+                .filter(request -> !request.isApprovedByDoctor())
+                .collect(Collectors.toList());
         return requests;
     }
 

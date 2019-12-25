@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserRequestsController {
@@ -48,6 +49,10 @@ public class UserRequestsController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        requests = requests.stream()
+                .filter(request -> !request.isApprovedByAdmin() ||
+                        !request.isApprovedByDoctor())
+                .collect(Collectors.toList());
         return requests;
     }
 
@@ -108,6 +113,10 @@ public class UserRequestsController {
 
     @GetMapping("/all_requests")
     public List<Request> getAllRequests() {
-        return (List<Request>) requestsRepository.findAll();
+        List<Request> requests = (List<Request>) requestsRepository.findAll();
+        requests = requests.stream()
+                .filter(request -> !request.isApprovedByAdmin())
+                .collect(Collectors.toList());
+        return requests;
     }
 }
